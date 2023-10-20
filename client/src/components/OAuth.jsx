@@ -13,7 +13,7 @@ const OAuth = () => {
             console.log(result);
 
             const res = await fetch('/api/auth/google', {
-                method: 'POST',
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json'
                 },
