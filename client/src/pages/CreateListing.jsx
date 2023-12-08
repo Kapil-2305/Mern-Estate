@@ -8,6 +8,21 @@ const CreateListing = () => {
     const navigate = useNavigate();
     const [files, setFiles] = useState([]);
 
+    const [formData, setFormData] = useState({
+        imageUrls: [],
+        name: '',
+        description: '',
+        address: '',
+        type: 'rent',
+        bedrooms: 1,
+        bathrooms: 1,
+        regularPrice: 50,
+        discountPrice: 0,
+        offer: false,
+        parking: false,
+        furnished: false,
+    });
+
     const [imageUploadError, setImageUploadError] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(false);
