@@ -3,9 +3,34 @@ import React from 'react'
 const CreateListing = () => {
     const [files, setFiles] = useState([]);
 
-    const handleImageSubmit = async (e) => {
+    const handleImageSubmit = (e) => {
+        if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+            setUploading(true);
+            setImageUploadError(false);
+            const promises = [];
         
-    }
+            for (let i = 0; i < files.length; i++) {
+                promises.push(storeImage(files[i]));
+            }
+            Promise.all(promises)
+            .then((urls) => {
+            setFormData({
+                ...formData,
+                imageUrls: formData.imageUrls.concat(urls),
+            });
+            setImageUploadError(false);
+            setUploading(false);
+            })
+            .catch((err) => {
+                setImageUploadError('Image upload failed (2 mb max per image)');
+                setUploading(false);
+            });
+        } 
+        else {
+            setImageUploadError('You can only upload 6 images per listing');
+            setUploading(false);
+        }
+    };
 
     return (
         <main className='p-3 max-w-4xl mx-auto'>
