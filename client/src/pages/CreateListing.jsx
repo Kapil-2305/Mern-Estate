@@ -77,7 +77,14 @@ const CreateListing = () => {
                 }
             );
         });
-      };
+    };
+
+    const handleRemoveImage = (index) => {
+        setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+        });
+    };
 
     return (
         <main className='p-3 max-w-4xl mx-auto'>
