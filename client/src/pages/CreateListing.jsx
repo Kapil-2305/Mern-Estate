@@ -74,7 +74,14 @@ const CreateListing = () => {
                     </p>
                     <div className='flex gap-4'>
                         <input onChange={(e)=> setFiles(e.target.files)} className='p-3 border border-gray-300 rounded w-full' type='file' id='images' accept='image/*' multiple />
-                        <button className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Upload</button>
+                        <button 
+                            type='button'
+                            disabled={uploading}
+                            onClick={handleImageSubmit}
+                            className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'
+                        >
+                            {uploading ? 'Uploading...' : 'Upload'}
+                        </button>
                     </div>
 
                     <button onClick={handleImageSubmit} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Create Listing</button>
