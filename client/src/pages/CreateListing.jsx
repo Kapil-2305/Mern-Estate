@@ -117,6 +117,37 @@ const CreateListing = () => {
         }
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (formData.imageUrls.length < 1)
+                return setError('You must upload at least one image');
+            if (+formData.regularPrice < +formData.discountPrice)
+                return setError('Discount price must be lower than regular price');
+            setLoading(true);
+            setError(false);
+            const res = await fetch('/api/listing/create', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    userRef: currentUser._id,
+                }),
+            });
+            const data = await res.json();
+            setLoading(false);
+            if (data.success === false) {
+                setError(data.message);
+            }
+            navigate(`/listing/${data._id}`);
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+
     return (
         <main className='p-3 max-w-4xl mx-auto'>
             <h1 className='text-3xl font-semibold text-center my-7'>Create a Listing</h1>
